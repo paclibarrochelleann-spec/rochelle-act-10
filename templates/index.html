@@ -250,6 +250,68 @@
             font-size: 13px;
             margin-top: 30px;
         }
+    
+        /* ===== ROCHELLE LAB 10 UPDATE: teal hero + collapsible full-width sections ===== */
+        html.aws-dark { filter: invert(0.92) hue-rotate(180deg); background: #fff; }
+        html.aws-dark body { background: #fff !important; }
+
+        body {
+            max-width: none !important; width: 100%; margin: 0 !important; padding: 0 0 40px !important;
+            background: #eef6f4 !important; font-family: "Segoe UI", Arial, sans-serif;
+        }
+        body > h1, body > .subtitle { display: none !important; }
+        body > .card, body > section.card { margin: 0 28px 16px !important; width: auto; max-width: none !important; border-radius: 14px; border-left: 6px solid #0f766e; }
+        h2 { font-family: Georgia, "Times New Roman", serif; color: #0f766e !important; }
+
+        .rh-hero {
+            margin: 0 0 20px; padding: 30px 28px 22px; color: #fff;
+            background: linear-gradient(120deg, #064e3b 0%, #0f766e 55%, #14b8a6 100%);
+        }
+        .rh-hero-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; flex-wrap: wrap; }
+        .rh-eyebrow { font-size: 12px; letter-spacing: 0.14em; opacity: 0.85; }
+        h2.rh-title { margin: 6px 0 4px !important; font-size: 36px; color: #fff !important; }
+        .rh-sub { margin: 0; opacity: 0.92; font-size: 15px; }
+        .rh-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+        .rh-btn { margin: 0 !important; background: rgba(255,255,255,0.16) !important; color: #fff !important; border: 1px solid rgba(255,255,255,0.55) !important; border-radius: 999px !important; padding: 8px 16px !important; font-size: 13px; cursor: pointer; }
+        .rh-btn:hover { background: rgba(255,255,255,0.3) !important; }
+        .rh-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 26px; }
+        .rh-stat { background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.3); border-radius: 14px; padding: 18px 20px; }
+        .rh-stat b { display: block; font-family: Georgia, serif; font-size: 44px; line-height: 1; }
+        .rh-stat span { display: block; margin-top: 8px; font-size: 13px; opacity: 0.9; }
+        .rh-sources { margin-top: 20px; }
+        .rh-foot { margin: 10px 0 0; font-size: 12px; opacity: 0.8; }
+        .rh-hint { margin: 0 28px 10px; color: #475569; font-size: 13px; }
+        .aws-pill { padding: 5px 14px; border-radius: 999px; font-size: 12px; font-weight: 700; }
+        .aws-pill-ok { background: #dcfce7; color: #166534; }
+        .aws-pill-bad { background: #fee2e2; color: #991b1b; }
+        .aws-pill-wait { background: #e2e8f0; color: #475569; }
+        .aws-bar { display: flex; height: 14px; border-radius: 999px; overflow: hidden; background: rgba(255,255,255,0.25); }
+        .aws-bar div { height: 100%; }
+        .aws-legend { display: flex; gap: 18px; flex-wrap: wrap; font-size: 13px; margin-top: 8px; }
+        .aws-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; }
+
+        /* collapsible sections */
+        .rh-acc > h2 { cursor: pointer; margin: 0 !important; display: flex; justify-content: space-between; align-items: center; }
+        .rh-acc > h2::after { content: "▾"; font-size: 18px; color: #64748b; transition: transform 0.15s; }
+        .rh-acc.collapsed > h2::after { transform: rotate(-90deg); }
+        .rh-acc.collapsed > *:not(h2) { display: none !important; }
+        .rh-acc:not(.collapsed) > h2 { margin-bottom: 14px !important; }
+
+        /* teal buttons */
+        button:not(.rh-btn):not(.delete-btn):not(.gray-btn) { background-color: #0f766e; }
+        button:not(.rh-btn):not(.delete-btn):not(.gray-btn):hover { background-color: #115e59; }
+        .source { background-color: #ccfbf1; color: #115e59; }
+        .source.remote { background-color: #fef3c7; color: #92400e; }
+        .student { border-left-color: #0f766e; }
+        .student.remote { border-left-color: #d97706; }
+
+        /* records become full-width rows */
+        .student-row { align-items: center !important; }
+        .student-row > div:first-child { display: flex; gap: 40px; align-items: center; flex: 1; flex-wrap: wrap; }
+        .form-grid { grid-template-columns: repeat(5, minmax(0, 1fr)) !important; }
+
+        @media (max-width: 1000px) { .rh-stats { grid-template-columns: repeat(2, 1fr); } .form-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } }
+        @media (max-width: 560px) { .rh-stats { grid-template-columns: 1fr; } h2.rh-title { font-size: 26px; } .form-grid { grid-template-columns: 1fr !important; } }
     </style>
 </head>
 
@@ -259,6 +321,38 @@
     <p class="subtitle">
         Welcome! Explore student information and test the Flask APIs.
     </p>
+
+    <!-- ===== ROCHELLE LAB 10 UPDATE: hero banner with live stats ===== -->
+    <header class="rh-hero">
+        <div class="rh-hero-top">
+            <div>
+                <span class="rh-eyebrow">AWS LIGHTSAIL · LABORATORY ACTIVITY 10</span>
+                <h2 class="rh-title">Rochelle Ann's Student Hub</h2>
+                <p class="rh-sub">Running on <b id="awsHost">-</b> &nbsp;·&nbsp; partner server <b id="awsPartner">-</b></p>
+            </div>
+            <div class="rh-actions">
+                <span id="awsLive" class="aws-pill aws-pill-wait">Checking...</span>
+                <button type="button" id="awsCheck" class="rh-btn">Check now</button>
+                <button type="button" id="awsCopy" class="rh-btn">Copy my API URL</button>
+                <button type="button" id="awsTheme" class="rh-btn">🌙 Dark</button>
+            </div>
+        </div>
+
+        <div class="rh-stats">
+            <div class="rh-stat"><b id="awsLocal">-</b><span>Local records</span></div>
+            <div class="rh-stat"><b id="awsImported">-</b><span>Imported / received</span></div>
+            <div class="rh-stat"><b id="awsPartnerCount">-</b><span>Partner records online</span></div>
+            <div class="rh-stat"><b id="awsPartnerMs">-</b><span id="awsPartnerState">Partner reply time</span></div>
+        </div>
+
+        <div class="rh-sources">
+            <div class="aws-bar" id="awsBar"></div>
+            <div class="aws-legend" id="awsLegend"></div>
+        </div>
+        <p class="rh-foot" id="awsFoot">Status refreshes every 15 seconds.</p>
+    </header>
+    <p class="rh-hint">Click a section title to open or close it.</p>
+    <!-- ===== END ROCHELLE LAB 10 UPDATE ===== -->
 
     <!-- Student Information -->
     <section class="card">
@@ -969,6 +1063,96 @@
         }
 
         loadMyRecords();
+    
+    // ===== ROCHELLE LAB 10 UPDATE: collapsible sections, theme, server info and partner health =====
+    (function () {
+        const $ = id => document.getElementById(id);
+        const COLORS = {'Local': '#ffffff', 'Classmate API': '#a7f3d0', 'Partner API': '#fcd34d', 'External API': '#fcd34d'};
+
+        // sections open or close when the title is clicked; the older lab cards start closed
+        const OPEN = ['myRecords', 'partnerRecords', 'sendCard', 'dashboardCard'];
+        document.querySelectorAll('body > .card, body > section.card').forEach(card => {
+            const title = card.querySelector('h2');
+            if (!title) return;
+            card.classList.add('rh-acc');
+            if (!OPEN.includes(card.id)) card.classList.add('collapsed');
+            title.addEventListener('click', () => card.classList.toggle('collapsed'));
+        });
+
+        function setTheme(dark) {
+            document.documentElement.classList.toggle('aws-dark', dark);
+            $('awsTheme').textContent = dark ? '☀ Light' : '🌙 Dark';
+            try { localStorage.setItem('awsTheme', dark ? 'dark' : 'light'); } catch (e) { /* storage may be blocked */ }
+        }
+        let startDark = false;
+        try { startDark = localStorage.getItem('awsTheme') === 'dark'; } catch (e) { /* storage may be blocked */ }
+        setTheme(startDark);
+        $('awsTheme').addEventListener('click', () => setTheme(!document.documentElement.classList.contains('aws-dark')));
+
+        $('awsCopy').addEventListener('click', async () => {
+            const url = location.origin + '/api/students';
+            try { await navigator.clipboard.writeText(url); $('awsCopy').textContent = 'Copied!'; }
+            catch (e) { $('awsCopy').textContent = url; }
+            setTimeout(() => { $('awsCopy').textContent = 'Copy my API URL'; }, 2500);
+        });
+
+        function pill(ok, text) {
+            const p = $('awsLive');
+            p.textContent = text;
+            p.className = 'aws-pill ' + (ok === null ? 'aws-pill-wait' : ok ? 'aws-pill-ok' : 'aws-pill-bad');
+        }
+
+        function drawSources(counts) {
+            const bar = $('awsBar'), legend = $('awsLegend');
+            bar.textContent = ''; legend.textContent = '';
+            const total = Object.values(counts).reduce((a, b) => a + b, 0);
+            Object.entries(counts).forEach(([name, n]) => {
+                const seg = document.createElement('div');
+                seg.style.width = (n * 100 / total) + '%';
+                seg.style.background = COLORS[name] || '#e2e8f0';
+                seg.title = name + ': ' + n;
+                bar.appendChild(seg);
+                const item = document.createElement('span');
+                const dot = document.createElement('i');
+                dot.style.background = COLORS[name] || '#e2e8f0';
+                item.appendChild(dot);
+                item.appendChild(document.createTextNode(name + ': ' + n));
+                legend.appendChild(item);
+            });
+        }
+
+        async function refresh() {
+            pill(null, 'Checking...');
+            try {
+                const info = await (await fetch('/server-info')).json();
+                $('awsHost').textContent = info.host;
+                $('awsPartner').textContent = info.partner_host;
+                const local = info.by_source['Local'] || 0;
+                $('awsLocal').textContent = local;
+                $('awsImported').textContent = info.records - local;
+                drawSources(info.by_source);
+            } catch (e) {
+                pill(false, 'Server info unavailable');
+                return;
+            }
+
+            try {
+                const st = await (await fetch('/partner-status')).json();
+                $('awsPartnerCount').textContent = st.online ? st.records : '-';
+                $('awsPartnerMs').textContent = st.online ? st.ms + ' ms' : '-';
+                $('awsPartnerState').textContent = st.online ? 'Partner reply time' : (st.error || 'Partner not reachable');
+                pill(st.online, st.online ? 'Partner online' : 'Partner offline');
+            } catch (e) {
+                pill(false, 'Partner check failed');
+            }
+
+            $('awsFoot').textContent = 'Last checked ' + new Date().toLocaleTimeString() + '. Status refreshes every 15 seconds.';
+        }
+
+        $('awsCheck').addEventListener('click', refresh);
+        setInterval(refresh, 15000);
+        refresh();
+    })();
     </script>
 
 </body>
